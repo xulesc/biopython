@@ -2,4 +2,5 @@
 # license.  Please see the LICENSE file that should have been included
 # as part of this package.
 
-"""Collection of methods useful for Protien Structure Comparison."""
+"""Collection of various methods useful for Protien Structure Comparison."""
+
