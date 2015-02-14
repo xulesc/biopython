@@ -351,6 +351,7 @@ PACKAGES = [
     'Bio.Pathway',
     'Bio.Pathway.Rep',
     'Bio.PDB',
+    'Bio.PDB.PSC',
     'Bio.PopGen',
     'Bio.PopGen.Async',
     'Bio.PopGen.FDist',
