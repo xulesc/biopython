@@ -44,7 +44,7 @@ class USM:
 
     def _get_cm_file_string(self, X, Y, n_contacts, n_atoms):
         "Returns the contact map as a string."
-        st = '\n'.join(map(lambda x: '%s %s' % (x[0], x[1]), zip(X, Y)))
+        st = '\n'.join(map(str, zip(X,Y)))
         return '%d\t# Number of Residues\n%d\t# Number of Contacts\n%s' \
             % (n_atoms, n_contacts, st)
 
