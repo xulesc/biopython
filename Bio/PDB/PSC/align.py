@@ -6,7 +6,8 @@
 """
 
 from .munkres import run_munkres
-import numpy as np
+import numpy as 
+from scipy.spatial import distance
 
 class Munkres:
   def run_munkres(self, cost_matrix, do_max = 0):
@@ -33,8 +34,13 @@ class Munkres:
 
 class Align:
     def __init__(self):
-	print 'hello world'
-	pass
+	self.munkres = Munkres()
+      
+    def non_sequential(coords1, coords2):
+	dist_matrix = distance.cdist(coords1, coords2, 'euclidean').astype(np.int32)
+	cost_matrix = munkres.run_munkres(dist_matrix)
+	non_zero = cost_matrix > 0
+	return np.column_stack(np.where(non_zero))
       
 if __name__ == '__main__':
     print 'local test'
