@@ -444,6 +444,12 @@ if is_Numpy_installed():
                   ["Bio/PDB/QCPSuperimposer/qcprotmodule.c"],
                   include_dirs=[numpy_include_dir],
                   ))
+    EXTENSIONS.append(
+	Extension('Bio.PDB.PSC.munkres', 
+		  ["Bio/PDB/PSC/munkres.c"],
+		  extra_compile_args=['-std=c99', '-ffast-math', '-D __PYMOD__'],
+		  include_dirs=[numpy_include_dir],
+	      ))
 
 
 # We now define the Biopython version number in Bio/__init__.py
