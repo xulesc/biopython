@@ -36,9 +36,9 @@ class Align:
     def __init__(self):
 	self.munkres = Munkres()
       
-    def non_sequential(coords1, coords2):
+    def non_sequential(self, coords1, coords2):
 	dist_matrix = distance.cdist(coords1, coords2, 'euclidean').astype(np.int32)
-	cost_matrix = munkres.run_munkres(dist_matrix)
+	cost_matrix = self.munkres.run_munkres(dist_matrix, 0)
 	non_zero = cost_matrix > 0
 	return np.column_stack(np.where(non_zero))
       
