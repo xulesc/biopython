@@ -6,7 +6,7 @@
 """
 
 from .munkres import run_munkres
-import numpy as 
+import numpy as np
 from scipy.spatial import distance
 
 class Munkres:
