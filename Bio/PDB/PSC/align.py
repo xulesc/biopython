@@ -67,7 +67,7 @@ class Align:
         ## traceback
         path = []
         #path.append((X, Y))
-        while X >= 0 and Y >= 0:
+        while X > 0 and Y > 0:
             diag = M[X-1][Y-1]
             up = M[X-1][Y]
             left = M[X][Y-1]
