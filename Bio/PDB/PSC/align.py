@@ -72,7 +72,7 @@ class Align:
             up = M[X-1][Y]
             left = M[X][Y-1]
             if diag >= up and diag >= left:
-                path.append((X-1, Y-1))
+                path.append((X - 1, Y - 1))
                 X -= 1
                 Y -= 1
             elif up >= diag and up >= left:
@@ -84,7 +84,7 @@ class Align:
 	
     def sequential(self, coords1, coords2):
         gap_penalty = -0.6
-        dist_matrix = distance.cdist(coords1, coords2, 'euclidean').astype(np.int32)
+        dist_matrix = distance.cdist(coords1, coords2, 'euclidean').astype(np.float)
         # simlarity like in tmalign
         Lmin = min(coords1.shape[0], coords2.shape[0])
         d0Lmin = (1.24 * ((1 + math.cos(Lmin-1.5)) ** (1 / 3.0))) ** 2
