@@ -61,18 +61,18 @@ class Align:
             for j in xrange(1, cols + 1):
                 M[i][j] = max(M[i-1][j-1]+S[i-1][j-1], M[i][j-1]+w, M[i-1][j]+w)
         #print M
-        #(X, Y) = np.where(M == M.max()); X = X[len(X)-1]; Y = Y[len(Y)-1]
+        (X, Y) = np.where(M == M.max()); X = X[len(X)-1]; Y = Y[len(Y)-1]
         #print '%d %d' %(X,Y)
-        X = rows - 1; Y = cols - 1
+        #X = rows - 1; Y = cols - 1
         ## traceback
         path = []
-        path.append((X, Y))
+        #path.append((X, Y))
         while X >= 0 and Y >= 0:
             diag = M[X-1][Y-1]
             up = M[X-1][Y]
             left = M[X][Y-1]
             if diag >= up and diag >= left:
-                path.append((X, Y))
+                path.append((X-1, Y-1))
                 X -= 1
                 Y -= 1
             elif up >= diag and up >= left:
