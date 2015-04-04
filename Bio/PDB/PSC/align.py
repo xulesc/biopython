@@ -67,39 +67,26 @@ class DP:
         for i in xrange(1, rows+1):
             for j in xrange(1, cols+1):
                 D = val[i-1][j-1] + S[i-1][j-1]
-                H = val[i-1][j]
-                if dir[i-1][j] == 1:
-                    H = H + gapcost
-                V = val[i][j-1]
-                if dir[i][j-1] == 1:
-                    V = V + gapcost
+                H = val[i-1][j] + (gapcost * (dir[i-1][j] == 1))
+                V = val[i][j-1] + (gapcost * (dir[i][j-1] == 1))
             
+                dir[i][j] = (D >= H and D >= V)
                 if D >= H and D >= V:
-                    dir[i][j] = 1
                     val[i][j] = D
                 else:
-                    dir[i][j] = 0
                     val[i][j] = max(V, H)
-        #print dir
-        #print val
         ## extract the alignment
         (i, j) = (rows, cols); path = []
         while i > 0 and j > 0:
             if dir[i][j] == 1:
-                path.append((i - 1, j - 1))
                 i -= 1
                 j -= 1
+                path.append((i, j))
             else:
-                H = val[i-1][j]
-                if dir[i-1][j] == 1:
-                    H = H + gapcost
-                V = val[i][j-1]
-                if dir[i][j-1] == 1:
-                    V = V + gapcost
-                if V >= H:
-                    j -= 1
-                else:
-                    i -= 1
+                H = val[i-1][j] + gapcost * (dir[i-1][j] == 1)                
+                V = val[i][j-1] + gapcost * (dir[i][j-1] == 1)
+                j -= (V>=H)
+                i -= (V<H)
         path.reverse()
         return path
 
@@ -123,14 +110,15 @@ class Align:
         return retval  
 
     def sequential(self, coords1, coords2):
-        gap_penalty = -0.6
+        gap_penalty = -0.6 #0.0
         dist_matrix = distance.cdist(coords1, coords2, 'euclidean').astype(np.float)
         # simlarity like in tmalign
         Lmin = min(coords1.shape[0], coords2.shape[0])
-        d0Lmin = (1.24 * ((1 + math.cos(Lmin-1.5)) ** (1 / 3.0))) ** 2
-        siml_matrix = 1 / (1 + (dist_matrix * 2)/d0Lmin)
+        d0Lmin = 1.24 * ((Lmin - 15) ** (1/3.0)) - 1.8
+        d0LminSq = d0Lmin ** 2
+        siml_matrix = 1 / (1 + (dist_matrix * 2)/d0LminSq)
         # inverse of rmsd
-        #siml_matrix = 1 - dist_matrix / dist_matrix.max()
+        #siml_matrix = 1 - dist_matrix / dist_matrix.max()        
         return self.dp.dp2(gap_penalty, siml_matrix)
       
 if __name__ == '__main__':
