@@ -119,8 +119,7 @@ class TMalign:
             parameters. The pdb files are created by downloading the domains from
             pdb. The files are downloaded to the directory specified by the odir
             argument.
-            """
-            p1file = self._pdbl.retrieve_pdb_file(pdb1, pdir=odir)
+            """		p1file = self._pdbl.retrieve_pdb_file(pdb1, pdir=odir)
             p2file = self._pdbl.retrieve_pdb_file(pdb2, pdir=odir)
             self.frun(p1file, p2file)
 
