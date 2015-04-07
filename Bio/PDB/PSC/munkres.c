@@ -436,14 +436,11 @@ static struct PyModuleDef moduledef = {
     -1, munkres_methods, NULL, NULL, NULL, NULL
 };
 
-// use this to ensure the name does not get garbled if c++ compiler is used
-PyMODINIT_FUNC
 PyObject * PyInit_munkress(void) {
     return PyModule_Create(&moduledef);
 }
 #else
 
-PyMODINIT_FUNC
 initmunkres(void) {
     import_array();
     Py_InitModule("munkres", munkres_methods);
